@@ -41,6 +41,11 @@ public class LoginController {
 		return "denied";
 	}
 	
+	@RequestMapping("/messages")
+	public String showMessages() {
+		return "messages";
+	}
+	
 	@RequestMapping("/admin")
 	public String showAdmin(Model model) {
 		
