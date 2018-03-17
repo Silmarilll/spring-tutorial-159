@@ -10,6 +10,8 @@
 </div>
 
 
+
+
 <script type="text/javascript">
 <!--
 	var timer;
@@ -19,8 +21,27 @@
 		$("#form" + i).toggle();
 	}
 	
-	function sendMessage(i) {
-		alert($("#textbox" + i).val());
+	function success(data) {
+		alert("success");
+	}
+	
+	function error(data) {
+		alert("error");
+	}
+	
+	function sendMessage(i, name, email) {
+		
+		var text = $("#textbox" + i).val();
+		
+		$.ajax({
+			"type": 'POST',
+			"url": '<c:url value="/sendmessage" />',
+			"data": JSON.stringify({"text": text, "name": name, "email": email}),
+			"success": success,
+			"error": error,
+			contentType: "application/json",
+			dataType: "json"
+		});
 	}
 	
 	function showMessages(data) {
@@ -65,11 +86,11 @@
 			replyButton.setAttribute("class", "replybutton");
 			replyButton.setAttribute("type", "button");
 			replyButton.setAttribute("value", "Reply");
-			replyButton.onclick = function(j) {
+			replyButton.onclick = function(j, name, email) {
 				return function() {
-					sendMessage(j);
+					sendMessage(j, name, email);
 				}
-			}(i);
+			}(i, message.name, message.email);
 			
 			replyForm.appendChild(textarea);
 			replyForm.appendChild(replyButton);
