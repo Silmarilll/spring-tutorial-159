@@ -12,8 +12,10 @@
 
 <script type="text/javascript">
 <!--
-
+	var timer;
+	
 	function showReply(i) {
+		stopTimer();
 		$("#form" + i).toggle();
 	}
 	
@@ -74,7 +76,15 @@
 
 	function onLoad() {
 		updatePage();
-		window.setInterval(updatePage, 30000);
+		startTimer();
+	}
+	
+	function startTimer() {
+		timer = window.setInterval(updatePage, 5000);
+	}
+	
+	function stopTimer() {
+		window.clearInterval(timer);
 	}
 	
 	function updatePage() {
